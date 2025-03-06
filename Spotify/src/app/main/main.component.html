@@ -1,0 +1,23 @@
+<main>
+  <section>
+    <h2>Canciones</h2>
+    <div class="grid-container" id="canciones">
+      <app-cancion
+        *ngFor="let cancion of canciones"
+        [titulo]="cancion.titulo"
+        [autor]="cancion.autor"
+        [foto]="cancion.foto">
+      </app-cancion>
+    </div>
+  </section>
+
+  <section>
+    <h2>Playlists</h2>
+    <div class="grid-container" id="playlists">
+      <app-playlist
+        *ngFor="let playlist of playlists"
+        [nombre]="playlist.nombre">
+      </app-playlist>
+    </div>
+  </section>
+</main>
