@@ -3,10 +3,13 @@
     <h2>Canciones</h2>
     <div class="grid-container" id="canciones">
       <app-cancion
+      
+
         *ngFor="let cancion of canciones"
         [titulo]="cancion.titulo"
         [autor]="cancion.autor"
-        [foto]="cancion.foto">
+        [foto]="cancion.foto"
+        (cancionClick)="reproducirCancion(cancion)">
       </app-cancion>
     </div>
   </section>
