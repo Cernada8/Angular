@@ -1,10 +1,5 @@
-<app-header></app-header>
-<app-nav></app-nav>
-<app-main (songSelected)="onSongSelected($event)"></app-main>
-<app-reproductor 
-    *ngIf="cancionSeleccionada"
-    [audio_url]="audio_url"
-    [nombreCancion]="cancionSeleccionada.titulo"
-    [nombreArtista]="cancionSeleccionada.autor"
-    [fotoCancion]="cancionSeleccionada.foto">
-</app-reproductor>
+<router-outlet></router-outlet>
+
+
+
+
