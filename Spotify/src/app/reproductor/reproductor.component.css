@@ -192,3 +192,30 @@
   75% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
+
+.like-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.like-count {
+  position: absolute;
+  bottom: -18px;
+  font-size: 0.75rem;
+  color: #ff4d4d;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.liked .like-count {
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ViewChild, ElementRef, input } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild, ElementRef, input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-reproductor',
@@ -6,23 +6,46 @@ import { Component, Input, AfterViewInit, ViewChild, ElementRef, input } from '@
   templateUrl: './reproductor.component.html',
   styleUrl: './reproductor.component.css'
 })
-export class ReproductorComponent {
+export class ReproductorComponent implements OnInit{
   @Input() canciones!: any;
   @Input() nombreCancion!: string;
   @Input() nombreArtista!: string;
   @Input() fotoCancion!: string;
   @Input() audio_url!: string;
 
+  likes: number=0;
   currentTrackIndex: number = -1;
-
+  liked: boolean = false;
   @ViewChild('audio') audio!: ElementRef<HTMLAudioElement>;
 
-  liked: boolean = false;
+
+  ngOnInit() {
+    this.getLikes(); 
+  }
 
   toggleLike() {
     this.liked = !this.liked;
+
+    if (this.liked) {
+      fetch(`http://localhost:8000/cancion/sumarLikes/${this.nombreCancion}`, {
+        method: 'POST'
+      })
+        .then(response => {
+        })
+        .catch(error => console.error('Error actualizando like:', error));
+    }
+    else {
+      fetch(`http://localhost:8000/cancion/restarLikes/${this.nombreCancion}`, {
+        method: 'POST'
+      })
+        .then(response => {
+        })
+        .catch(error => console.error('Error actualizando like:', error));
+    }
+
+    this.getLikes();
   }
-  
+
   play() {
     const audio = this.audio.nativeElement;
     audio.load();
@@ -55,11 +78,22 @@ export class ReproductorComponent {
     const cancion = this.canciones[this.currentTrackIndex];
     const audioUrl = this.formatAudioUrl(cancion.titulo);
 
-    this.audio_url = "assets/music/"+audioUrl+".mp3";
+    this.audio_url = "assets/music/" + audioUrl + ".mp3";
     this.nombreCancion = cancion.titulo;
     this.nombreArtista = cancion.autor;
     this.fotoCancion = cancion.foto;
     this.play();
+    this.getLikes(); 
+
+  }
+
+  private getLikes() {
+    fetch(`http://localhost:8000/getLikes/${this.nombreCancion}`)
+      .then(response => response.json())
+      .then(data => {
+        this.likes = data[0].likes;
+      })
+      .catch(error => console.error('Error obteniendo likes:', error));
   }
 
 
