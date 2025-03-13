@@ -1,5 +1,18 @@
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></head>
 <div id="reproductor">
     <img [src]="fotoCancion" alt="portada de la canción">
+    <div class="player-controls">
+        <button class="control-btn" (click)="cancionAnterior()">
+            <i class="fas fa-step-backward"></i>
+        </button>
+        
+        <button class="control-btn" (click)="toggleLike()" [class.liked]="liked">
+            <i class="far fa-heart"></i>
+        </button>
+        <button class="control-btn" (click)="cancionSiguiente()">
+            <i class="fas fa-step-forward"></i>
+        </button>
+    </div>
     <audio #audio [src]="audio_url" controls></audio>
     <h3>{{nombreCancion}}</h3>
     <h4>{{nombreArtista}}</h4>

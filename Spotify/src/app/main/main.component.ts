@@ -17,6 +17,7 @@ export class MainComponent implements OnInit {
   playlists: any[] = []
 
   @Output() songSelected = new EventEmitter<any>();
+  @Output() listaCanciones= new EventEmitter<any>();
 
 
   constructor() { }
@@ -27,8 +28,12 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    
+
     fetch('http://127.0.0.1:8000/cancion/mostrarTodas').then(response => response.json()).then(data => {
       this.canciones = data;
+      this.listaCanciones.emit(this.canciones);
     })
       .catch(error => console.error('Error:', error));
 
@@ -36,8 +41,6 @@ export class MainComponent implements OnInit {
       this.playlists = data;
     })
       .catch(error => console.error('Error:', error));
-
-
 
   }
 }

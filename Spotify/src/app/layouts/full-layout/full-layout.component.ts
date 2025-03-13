@@ -13,17 +13,22 @@ import { CommonModule } from '@angular/common';
   templateUrl: './full-layout.component.html',
   styleUrls: ['./full-layout.component.css']
 })
-export class FullLayoutComponent { 
+export class FullLayoutComponent {
   @ViewChild(ReproductorComponent) reproductor!: ReproductorComponent;
   cancionSeleccionada: any = null;
   audio_url: string = "";
+  canciones: any[] = [];
 
   onSongSelected(cancion: any) {
     this.audio_url = "assets/music/" + cancion.titulo.toLowerCase().replace(/\s+/g, '_') + ".mp3";
     this.cancionSeleccionada = cancion;
 
-    if(this.reproductor) {
+    if (this.reproductor) {
       this.reproductor.play();
     }
+  }
+
+  onListaCanciones(canciones: any) {
+    this.canciones=canciones;
   }
 }
